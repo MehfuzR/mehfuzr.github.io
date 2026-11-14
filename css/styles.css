@@ -53,6 +53,16 @@ a {
   border-bottom: 1px solid var(--line);
 }
 
+/* Hidden checkboxes that drive the menu and experience toggle without JavaScript */
+.nav-check,
+.exp-check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Navigation */
 nav {
   position: fixed;
@@ -131,6 +141,11 @@ nav {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* Menu button is only shown on phones and tablets */
+.nav-toggle {
+  display: none;
 }
 
 @media (max-width: 1100px) {
@@ -375,7 +390,8 @@ nav {
   position: relative;
 }
 
-.exp-wrap:not(.is-expanded)::after {
+/* Fade over the collapsed list, removed when expanded */
+#exp-check:not(:checked) ~ .exp-wrap::after {
   content: "";
   position: absolute;
   left: 0;
@@ -483,8 +499,13 @@ nav {
   box-shadow: inset 0 1px 0 #fff;
 }
 
-.timeline-more[hidden] {
+/* Older roles stay hidden until the toggle checkbox is checked */
+.timeline-more {
   display: none;
+}
+
+#exp-check:checked ~ .exp-wrap .timeline-more {
+  display: block;
 }
 
 .exp-toggle-row {
@@ -495,7 +516,7 @@ nav {
   z-index: 2;
 }
 
-.exp-wrap.is-expanded + .exp-toggle-row {
+#exp-check:checked ~ .exp-toggle-row {
   margin-top: 1.5rem;
 }
 
@@ -519,17 +540,17 @@ nav {
   }
 }
 
-.exp-wrap:not(.is-expanded)~.exp-toggle-row .exp-toggle {
+#exp-check:not(:checked) ~ .exp-toggle-row .exp-toggle {
   animation: nudge 2.2s ease-out infinite;
 }
 
-.exp-wrap:not(.is-expanded)~.exp-toggle-row .exp-toggle span {
+#exp-check:not(:checked) ~ .exp-toggle-row .exp-arrow {
   animation: bob 1.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .exp-toggle,
-  .exp-toggle span {
+  .exp-arrow {
     animation: none !important;
   }
 }
@@ -539,13 +560,35 @@ nav {
   gap: .5rem;
 }
 
-.exp-toggle span {
+.exp-more,
+.exp-less {
+  display: inline;
+}
+
+.exp-less {
+  display: none;
+}
+
+#exp-check:checked ~ .exp-toggle-row .exp-more {
+  display: none;
+}
+
+#exp-check:checked ~ .exp-toggle-row .exp-less {
+  display: inline;
+}
+
+.exp-arrow {
   display: inline-block;
   transition: transform .3s;
 }
 
-.exp-toggle[aria-expanded="true"] span {
+#exp-check:checked ~ .exp-toggle-row .exp-arrow {
   transform: rotate(180deg);
+}
+
+#exp-check:focus-visible ~ .exp-toggle-row .exp-toggle {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* Projects */
@@ -965,11 +1008,11 @@ html {
   scroll-padding-top: 90px;
 }
 
-/* Tablet and phone: compact header, tighter rhythm, calmer layouts.
+/* Tablet and phone: compact header with a menu button, tighter rhythm, calmer layouts.
    Everything here sits inside max-width queries, so desktop is unchanged. */
 @media (max-width: 900px) {
   html {
-    scroll-padding-top: 96px;
+    scroll-padding-top: 88px;
   }
 
   .section-padding {
@@ -1015,42 +1058,87 @@ html {
     gap: 1.5rem;
   }
 
-  /* Header: one compact bar with the links as a swipeable pill row */
+  /* Header: logo and a Menu button; the links open as a list */
   .nav-inner {
     height: auto;
-    flex-direction: column;
-    align-items: stretch;
-    gap: .55rem;
-    padding: .6rem 0 .55rem;
+    padding: .7rem 0;
   }
 
   .logo {
     font-size: .98rem;
   }
 
-  .nav-links {
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-    gap: .45rem;
-    padding: 0 0 .1rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .42rem .85rem;
+    border-radius: 999px;
+    background: var(--titanium);
+    border: 1px solid rgba(20,20,19,.1);
+    box-shadow: inset 0 1px 0 #fff,0 1px 2px rgba(20,20,19,.06);
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
   }
 
-  .nav-links::-webkit-scrollbar {
+  .nav-toggle-bars {
+    width: 14px;
+    height: 10px;
+    background:
+      linear-gradient(var(--text),var(--text)) 0 0/100% 2px no-repeat,
+      linear-gradient(var(--text),var(--text)) 0 50%/100% 2px no-repeat,
+      linear-gradient(var(--text),var(--text)) 0 100%/100% 2px no-repeat;
+  }
+
+  .nav-close {
     display: none;
   }
 
-  .nav-links a {
-    display: inline-flex;
-    align-items: center;
-    padding: .36rem .8rem;
-    border-radius: 999px;
-    background: var(--surface-2);
+  #nav-check:checked ~ .nav-inner .nav-open {
+    display: none;
+  }
+
+  #nav-check:checked ~ .nav-inner .nav-close {
+    display: inline;
+  }
+
+  #nav-check:focus-visible ~ .nav-inner .nav-toggle {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: .35rem;
+    background: rgba(250,248,243,.98);
     border: 1px solid var(--line);
-    font-size: .8rem;
-    line-height: 1.2;
+    border-radius: 18px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  #nav-check:checked ~ .nav-inner .nav-links {
+    display: flex;
+  }
+
+  .nav-links li + li {
+    border-top: 1px solid var(--line);
+  }
+
+  .nav-links a {
+    display: block;
+    padding: .8rem 1rem;
+    border-radius: 12px;
+    font-size: .95rem;
+    color: var(--text);
   }
 
   .nav-links a::after {
@@ -1188,7 +1276,7 @@ html {
     max-width: 340px;
   }
 
-  .exp-wrap:not(.is-expanded)::after {
+  #exp-check:not(:checked) ~ .exp-wrap::after {
     height: 110px;
   }
 
@@ -1236,7 +1324,7 @@ html {
   }
 
   .nav-links a {
-    padding: .34rem .7rem;
+    padding: .7rem .85rem;
   }
 }
 
