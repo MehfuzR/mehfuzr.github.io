@@ -9,8 +9,14 @@
 </head>
 <body>
 <nav>
+  <input type="checkbox" id="nav-check" class="nav-check" aria-label="Open navigation menu">
   <div class="container nav-inner">
     <a class="logo" href="#top">Mehfuz <span>A.</span> Rahman</a>
+    <label class="nav-toggle" for="nav-check">
+      <span class="nav-toggle-bars" aria-hidden="true"></span>
+      <span class="nav-open">Menu</span>
+      <span class="nav-close">Close</span>
+    </label>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -48,6 +54,7 @@
         <div class="section-kicker">Experience</div>
         <p class="section-subtitle">Several years of owning and solving production problems for real-world AI products, from research prototypes to robots running on mushroom farms across four countries.</p>
       </div>
+      <input type="checkbox" id="exp-check" class="exp-check" aria-label="Show all experience">
       <div class="exp-wrap">
         <div class="timeline">
           <div class="timeline-item">
@@ -103,7 +110,7 @@
               <span class="timeline-tag">Remote Development</span>
             </div>
           </div>
-          <div class="timeline-more" id="experience-more" hidden>
+          <div class="timeline-more" id="experience-more">
             <div class="timeline-item">
               <div class="timeline-marker"></div>
               <div class="timeline-date">May – December 2023</div>
@@ -140,7 +147,7 @@
               <div class="timeline-subtitle"><a href="https://www.modesttree.com/" target="_blank" rel="noopener noreferrer">Modest Tree</a> Inc. · Halifax</div>
               <div class="timeline-description">Led critical algorithm design for the <a href="https://youtu.be/Si5VlZFHcmI?si=48mzSWFYXZprRaGv" target="_blank" rel="noopener noreferrer">Tech Companion project</a>, a mixed-reality system. Removed the 3D depth data processing bottleneck in the neural network architecture, bringing processing speed to the required performance specification for defence-sector applications. Advocated model pruning and conversion to TensorRT, tuned to the target GPU’s specifications, to optimize inference speed.</div>
               <div class="timeline-tags">
-                <span class="timeline-tag">R&D</span>
+                <span class="timeline-tag">R&amp;D</span>
                 <span class="timeline-tag">Deep Neural Networks</span>
                 <span class="timeline-tag">Sensor Fusion</span>
                 <span class="timeline-tag">pandas</span>
@@ -157,7 +164,13 @@
           </div>
         </div>
       </div>
-      <div class="exp-toggle-row"><button type="button" class="btn btn-secondary exp-toggle" aria-expanded="false" aria-controls="experience-more">See more experience <span aria-hidden="true">↓</span></button></div>
+      <div class="exp-toggle-row">
+        <label for="exp-check" class="btn btn-secondary exp-toggle">
+          <span class="exp-more">See more experience</span>
+          <span class="exp-less">Show less experience</span>
+          <span class="exp-arrow" aria-hidden="true">↓</span>
+        </label>
+      </div>
     </div>
   </section>
   <section id="projects" class="projects section-padding">
