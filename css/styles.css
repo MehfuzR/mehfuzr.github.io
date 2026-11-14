@@ -965,10 +965,33 @@ html {
   scroll-padding-top: 90px;
 }
 
+/* Tablet and phone: compact header, tighter rhythm, calmer layouts.
+   Everything here sits inside max-width queries, so desktop is unchanged. */
 @media (max-width: 900px) {
+  html {
+    scroll-padding-top: 96px;
+  }
+
+  .section-padding {
+    padding: 72px 0;
+  }
+
+  #about {
+    min-height: auto;
+    padding: 112px 0 48px;
+  }
+
+  #experience {
+    padding-top: 56px;
+  }
+
+  #about .section-header {
+    margin-bottom: 1.4rem;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .about-figure {
@@ -992,20 +1015,25 @@ html {
     gap: 1.5rem;
   }
 
+  /* Header: one compact bar with the links as a swipeable pill row */
   .nav-inner {
     height: auto;
     flex-direction: column;
     align-items: stretch;
-    gap: .4rem;
-    padding: .7rem 0 .5rem;
+    gap: .55rem;
+    padding: .6rem 0 .55rem;
+  }
+
+  .logo {
+    font-size: .98rem;
   }
 
   .nav-links {
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
-    gap: 1.1rem;
-    padding-bottom: .25rem;
+    gap: .45rem;
+    padding: 0 0 .1rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -1015,18 +1043,18 @@ html {
   }
 
   .nav-links a {
-    font-size: .85rem;
-    display: inline-block;
-    padding: .45rem 0;
+    display: inline-flex;
+    align-items: center;
+    padding: .36rem .8rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    font-size: .8rem;
+    line-height: 1.2;
   }
 
-  html {
-    scroll-padding-top: 130px;
-  }
-
-  #about {
-    min-height: auto;
-    padding: 150px 0 56px;
+  .nav-links a::after {
+    display: none;
   }
 }
 
@@ -1036,41 +1064,86 @@ html {
   }
 
   .section-padding {
-    padding: 76px 0;
+    padding: 60px 0;
   }
 
   .section-header {
-    margin-bottom: 2.3rem;
+    margin-bottom: 1.9rem;
   }
 
-  .nav-inner {
-    height: auto;
+  .section-kicker {
+    margin-bottom: .9rem;
   }
 
-  .nav-links {
-    gap: .95rem;
+  .section-title {
+    font-size: 1.9rem;
+    margin-bottom: .75rem;
   }
 
-  .about-figure {
-    aspect-ratio: 1/1;
-    max-width: none;
+  .section-subtitle {
+    font-size: .96rem;
+  }
+
+  #about {
+    padding: 104px 0 40px;
+  }
+
+  .about-grid {
+    gap: 1.4rem;
   }
 
   .about-desc {
-    font-size: .94rem;
+    font-size: .92rem;
+    line-height: 1.65;
+    margin-bottom: .65rem;
   }
 
   .about-bottom,
   .edu-grid,
-  .projects-grid,
-  .cert-grid,
-  .contact-info {
+  .projects-grid {
     grid-template-columns: 1fr;
   }
 
+  /* Certifications stay two per row so more fits on screen */
+  .cert-grid {
+    grid-template-columns: repeat(2,1fr);
+    gap: .75rem;
+  }
+
+  .cert-thumb {
+    padding: .7rem;
+  }
+
+  .cert-title {
+    font-size: .86rem;
+    padding: .75rem .85rem .9rem;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+    gap: .7rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .9rem 1rem;
+  }
+
+  .contact-icon {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-text {
+    min-width: 0;
+  }
+
   .timeline-item {
-    padding-left: 2.2rem;
-    margin-bottom: 2.4rem;
+    padding-left: 2rem;
+    margin-bottom: 2rem;
   }
 
   .timeline::before {
@@ -1082,9 +1155,17 @@ html {
     height: 16px;
   }
 
+  .timeline-date {
+    font-size: .68rem;
+  }
+
   .timeline-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.35;
+  }
+
+  .timeline-subtitle {
+    font-size: .84rem;
   }
 
   .timeline-description {
@@ -1092,9 +1173,19 @@ html {
     line-height: 1.7;
   }
 
+  .timeline-tags {
+    gap: .35rem;
+    margin-top: .8rem;
+  }
+
+  .timeline-tag {
+    font-size: .66rem;
+    padding: .25rem .55rem;
+  }
+
   .exp-toggle {
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
   }
 
   .exp-wrap:not(.is-expanded)::after {
@@ -1106,24 +1197,27 @@ html {
   .skill-category,
   .leadership-card,
   .research-item {
-    padding: 1.25rem;
-  }
-
-  .project-info {
     padding: 1.2rem;
   }
 
+  .edu-card h3 {
+    font-size: 1.02rem;
+  }
+
+  .project-info {
+    padding: 1.1rem 1.1rem 1.25rem;
+  }
+
+  .project-info h4 {
+    font-size: 1.04rem;
+  }
+
   .contact-cta {
-    padding: 1.5rem;
+    padding: 1.4rem;
   }
 
   .contact-cta h3 {
     font-size: 1.3rem;
-  }
-
-  .cert-title {
-    font-size: .95rem;
-    padding: 1rem 1.1rem 1.2rem;
   }
 
   .research-header {
@@ -1134,11 +1228,15 @@ html {
 
 @media (max-width: 380px) {
   .timeline-item {
-    padding-left: 1.9rem;
+    padding-left: 1.7rem;
   }
 
   .section-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
+  }
+
+  .nav-links a {
+    padding: .34rem .7rem;
   }
 }
 
